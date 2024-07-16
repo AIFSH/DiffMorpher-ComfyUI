@@ -1,0 +1,301 @@
+{
+  "last_node_id": 11,
+  "last_link_id": 20,
+  "nodes": [
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [
+        66,
+        28
+      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            16
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Biden.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": [
+        81,
+        401
+      ],
+      "size": {
+        "0": 315,
+        "1": 314.0000305175781
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            17
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Trump.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "TextNode",
+      "pos": [
+        412,
+        35
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "TEXT",
+          "type": "TEXT",
+          "links": [
+            18
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextNode"
+      },
+      "widgets_values": [
+        "A photo of an American man"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "TextNode",
+      "pos": [
+        415,
+        529
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "TEXT",
+          "type": "TEXT",
+          "links": [
+            19
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextNode"
+      },
+      "widgets_values": [
+        "A photo of an American man"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "DiffMorpherNode",
+      "pos": [
+        861,
+        383
+      ],
+      "size": {
+        "0": 315,
+        "1": 310
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image_0",
+          "type": "IMAGE",
+          "link": 16
+        },
+        {
+          "name": "prompt_0",
+          "type": "TEXT",
+          "link": 18
+        },
+        {
+          "name": "image_1",
+          "type": "IMAGE",
+          "link": 17
+        },
+        {
+          "name": "prompt_1",
+          "type": "TEXT",
+          "link": 19
+        }
+      ],
+      "outputs": [
+        {
+          "name": "GIF",
+          "type": "GIF",
+          "links": [
+            20
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DiffMorpherNode"
+      },
+      "widgets_values": [
+        16,
+        100,
+        false,
+        false,
+        0.6,
+        false,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 10,
+      "type": "PreViewGIF",
+      "pos": [
+        998,
+        61
+      ],
+      "size": {
+        "0": 210,
+        "1": 26
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "gif",
+          "type": "GIF",
+          "link": 20
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreViewGIF"
+      },
+      "widgets_values": [
+        {
+          "hidden": false,
+          "paused": false,
+          "params": {}
+        },
+        {
+          "hidden": false,
+          "paused": false,
+          "params": {}
+        }
+      ]
+    }
+  ],
+  "links": [
+    [
+      16,
+      3,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ],
+    [
+      17,
+      4,
+      0,
+      11,
+      2,
+      "IMAGE"
+    ],
+    [
+      18,
+      5,
+      0,
+      11,
+      1,
+      "TEXT"
+    ],
+    [
+      19,
+      8,
+      0,
+      11,
+      3,
+      "TEXT"
+    ],
+    [
+      20,
+      11,
+      0,
+      10,
+      0,
+      "GIF"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1,
+      "offset": [
+        0,
+        0
+      ]
+    }
+  },
+  "version": 0.4
+}

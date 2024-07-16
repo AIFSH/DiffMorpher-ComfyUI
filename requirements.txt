@@ -1,0 +1,10 @@
+accelerate
+diffusers
+einops
+numpy
+opencv_python
+Pillow
+safetensors
+tqdm
+transformers
+lpips
