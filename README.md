@@ -4,7 +4,7 @@ a custom node for [DiffMorpher](https://github.com/Kevin-thu/DiffMorpher.git),yo
 ## Example
 image_0 | image_1 | output
 ----- | ---- | ----
-![](./doc/Biden.jpg) | ![](./doc/15.png) | ![](./doc/diffmorpher_1721118982208625000.gif)
+![](/doc/Biden.jpg) | ![](doc/15.png) | ![](doc/diffmorpher_1721118982208625000.gif)
 
 ## How to use
 ```
