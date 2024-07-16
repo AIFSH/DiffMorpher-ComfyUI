@@ -11,9 +11,6 @@ from .diffmorpher.model import DiffMorpherPipeline
 
 output_dir = folder_paths.get_output_directory()
 
-def get_64x_num(num):
-    return math.ceil(num / 64) * 64
-
 def crop_and_resize(image, height, width):
     image = np.array(image)
     image_height, image_width, _ = image.shape
@@ -30,9 +27,6 @@ def crop_and_resize(image, height, width):
     return image
 
 class DiffMorpherNode:
-    def __init__(self) -> None:
-        self.model_path = None
-        self.pipeline = None
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -84,7 +78,7 @@ class DiffMorpherNode:
         image = image.astype(np.uint8)
         image_pil = Image.fromarray(image).convert("RGB")
         org_w, org_h = image_pil.size
-        height, width = (768,get_64x_num(768*org_w/org_h)) if org_h > org_w else (get_64x_num(768*org_h/org_w),768)
+        height, width = (512,512)
         print(f"crop and resize from ({org_w},{org_h}) to ({width},{height})")
         return crop_and_resize(image_pil,height,width)
 
@@ -94,37 +88,41 @@ class DiffMorpherNode:
         if diffusers_model is None:
             # stabilityai/stable-diffusion-2-1-base
             model_path = os.path.join(folder_paths.models_dir, "diffusers","stable-diffusion-2-1-base")
+            
             snapshot_download(repo_id="stabilityai/stable-diffusion-2-1-base",
                               allow_patterns=["*.json","*.txt","*.fp16.safetensors"],
                               local_dir=model_path)
+            """
+            snapshot_download(repo_id="stabilityai/stable-diffusion-2-1-base",
+                              ignore_patterns=["v2*","*.bin","*.fp16.safetensors"],
+                              local_dir=model_path)
+            """
             
         else:
             model_path = folder_paths.get_full_path("diffusers",diffusers_model)
         
-        if self.model_path != model_path:
-            self.model_path = model_path
-            self.pipeline = DiffMorpherPipeline.from_pretrained(self.model_path, torch_dtype=torch.float16,variant="fp16",use_safetensors=True)
-        
-        self.pipeline.to("cuda")
+        pipeline = DiffMorpherPipeline.from_pretrained(model_path, torch_dtype=torch.float16,variant="fp16",use_safetensors=True)
+        # self.pipeline = DiffMorpherPipeline.from_pretrained(model_path, torch_dtype=torch.float32,use_safetensors=True)
+        pipeline.to("cuda")
         out_dir = os.path.join(output_dir,"diffmorpher")
         os.makedirs(out_dir,exist_ok=True)
-        images = self.pipeline(img_0=self.comfy2image(image_0),
-                               img_1=self.comfy2image(image_1),
-                               prompt_0=prompt_0,prompt_1=prompt_1,
-                               save_lora_dir=os.path.join(folder_paths.models_dir, "loras"),
-                               load_lora_path_0=lora_0,load_lora_path_1=lora_1,
-                               use_adain=use_adain,
-                               use_reschedule=use_reschedule,
-                               lamd=lamb,
-                               output_path=out_dir,
-                               num_frames=num_frames,
-                               save_intermediates=save_inter,
-                               use_lora= lora_0 and lora_1,
-                               )
+        images = pipeline(img_0=self.comfy2image(image_0),
+                        img_1=self.comfy2image(image_1),
+                        prompt_0=prompt_0,prompt_1=prompt_1,
+                        save_lora_dir=os.path.join(folder_paths.models_dir, "loras"),
+                        load_lora_path_0=lora_0,load_lora_path_1=lora_1,
+                        use_adain=use_adain,
+                        use_reschedule=use_reschedule,
+                        lamd=lamb,
+                        output_path=out_dir,
+                        num_frames=num_frames,
+                        save_intermediates=save_inter,
+                        use_lora= lora_0 and lora_1,
+                        )
         output_path = os.path.join(output_dir,f"diffmorpher_{time.time_ns()}.gif")
         images[0].save(output_path, save_all=True,
                append_images=images[1:], duration=duration, loop=0)
-        
+        pipeline.to("cpu")
         return (output_path,)
 
 

@@ -29,8 +29,8 @@ required
 - `use_reschedule`: Use reschedule sampling (default: False)
 - `lamb`: Hyperparameter $\lambda \in [0,1]$ for self-attention replacement, where a larger $\lambda$ indicates more replacements (default: 0.6)
 - `save_inter`: Save intermediate results (default: False) if True, frame saved in `ComfyUI/output/diffmorpher`
-- `num_frames`: Number of frames to generate (default: 50)
-- `duration`: Duration of each frame (default: 50)
+- `num_frames`: Number of frames to generate (default: 16)
+- `duration`: Duration of each frame (default: 100)
 
 optional
 - `diffusers_model`: Pretrained model path (default: "stabilityai/stable-diffusion-2-1-base")
