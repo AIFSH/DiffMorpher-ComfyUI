@@ -33,7 +33,7 @@ required
 - `duration`: Duration of each frame (default: 50)
 
 optional
-- `model_path`: Pretrained model path (default: "stabilityai/stable-diffusion-2-1-base")
+- `diffusers_model`: Pretrained model path (default: "stabilityai/stable-diffusion-2-1-base")
 - `lora_0`: Path of the lora directory of the first image (default: "")
 - `lora_1`: Path of the lora directory of the second image (default: "")
 
