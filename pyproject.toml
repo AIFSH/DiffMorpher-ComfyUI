@@ -1,0 +1,15 @@
+[project]
+name = "diffmorpher-comfyui"
+description = "a custom node for [a/DiffMorpher](https://github.com/Kevin-thu/DiffMorpher),you can find base workflow in [a/doc](https://github.com/AIFSH/DiffMorpher-ComfyUI/blob/main/doc)"
+version = "1.0.0"
+license = "LICENSE"
+dependencies = ["accelerate", "diffusers", "einops", "numpy", "opencv_python", "Pillow", "safetensors", "tqdm", "transformers", "lpips"]
+
+[project.urls]
+Repository = "https://github.com/AIFSH/DiffMorpher-ComfyUI"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "DiffMorpher-ComfyUI"
+Icon = ""
